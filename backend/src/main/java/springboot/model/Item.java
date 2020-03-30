@@ -21,15 +21,21 @@ public class Item {
     private String name;
     private String description;
     private int stockQuantity;
+    private double price;
 
     public Item() {
+        name="";
+        description="";
+        stockQuantity=-1;
+        shop= null;
     }
 
-    public Item(String name, String description, int stockQuantity, Shop shop) {
+    public Item(String name, String description, int stockQuantity, double price, Shop shop) {
 
         this.name = name;
         this.description = description;
         this.stockQuantity = stockQuantity;
+        this.price = price;
         this.shop = shop;
     }
 
@@ -73,14 +79,23 @@ public class Item {
         this.stockQuantity = stockQuantity;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", shop=" + shop.getId() +
+                ", shop=" + shop +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", stockQuantity=" + stockQuantity +
+                ", price=" + price +
                 '}';
     }
 }

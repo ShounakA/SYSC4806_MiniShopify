@@ -1,6 +1,7 @@
 package springboot.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import springboot.DTO.ItemDTO;
@@ -49,6 +50,7 @@ public class ShopController {
                         item.setName(i.getName());
                         item.setShop(s);
                         item.setStockQuantity(i.getStockQuantity());
+                        item.setPrice(i.getPrice());
                         s.getProducts().add(item);
                     }
                 }
@@ -80,7 +82,7 @@ public class ShopController {
         }
     }
 
-    @RequestMapping(value = "/api/shop", method = RequestMethod.PATCH, consumes = "application/json")
+    @RequestMapping(value = "/api/shop/edit", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity editShop(@RequestBody ShopDTO editShop){
         if(editShop != null && editShop.getId() != null){
             Optional<Shop> shop = shopRepo.findById(editShop.getId());
@@ -160,4 +162,84 @@ public class ShopController {
         return s == null || s.trim().isEmpty();
     }
 
+    @RequestMapping(value = "/api/shop/search", method = RequestMethod.GET, consumes = "application/json")
+    public ResponseEntity getShopByTags(@RequestBody ShopDTO shopDTO){
+        //if all three are there
+        if(!isEmptyNull(shopDTO.getDescription()) && !isEmptyNull(shopDTO.getName()) && !shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByNameAndDescriptionAndTagsIn(shopDTO.getName(), shopDTO.getDescription(), shopDTO.getTags());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with name : " + shopDTO.getName() + " and desc: " + shopDTO.getDescription() +
+                        " and tags: " + shopDTO.getTags());
+            }
+        }
+        //if name and desc are there NOT Tags
+        else if(!isEmptyNull(shopDTO.getName()) && !isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByNameAndDescription(shopDTO.getName(), shopDTO.getDescription());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with name : " + shopDTO.getName() + " and desc: " + shopDTO.getDescription());
+            }
+        }
+        //if name and Tags NOT desc
+        else if(!isEmptyNull(shopDTO.getName()) && isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags() != null && !shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByNameAndTagsIn(shopDTO.getName(), shopDTO.getTags());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with name : " + shopDTO.getName() + " and tags: " + shopDTO.getTags());
+            }
+        }
+        //if desc and Tags NOT name
+        else if(isEmptyNull(shopDTO.getName()) && !isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags() != null && !shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByDescriptionAndTagsIn(shopDTO.getDescription(), shopDTO.getTags());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with desc : " + shopDTO.getDescription() + " and tags: " + shopDTO.getTags());
+            }
+        }
+        //if name and NOT desc and Tags
+        else if(!isEmptyNull(shopDTO.getName()) && isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByName(shopDTO.getName());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with name : " + shopDTO.getName());
+            }
+        }
+        //if desc and NOT name and Tags
+        else if(isEmptyNull(shopDTO.getName()) && !isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByDescription(shopDTO.getDescription());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with desc : " + shopDTO.getDescription());
+            }
+        }
+        //if Tags and NOT name and desc
+        else if(isEmptyNull(shopDTO.getName()) && isEmptyNull(shopDTO.getDescription()) && shopDTO.getTags() != null && !shopDTO.getTags().isEmpty()){
+            List<Shop> s = shopRepo.findByTagsIn(shopDTO.getTags());
+            if(s != null && !s.isEmpty()){
+                return ResponseEntity.ok(s);
+            } else {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No shops found with tags : " + shopDTO.getTags());
+            }
+            //Catch all
+        } else {
+            return ResponseEntity.badRequest().body("Search params not found");
+        }
+    }
+
+    @GetMapping(value = "/api/public/allShops")
+    public ResponseEntity getAllShops(){
+        List<Shop> shops = shopRepo.findAll();
+        if(shops != null){
+            return ResponseEntity.ok(shops);
+        } else {
+            return ResponseEntity.badRequest().body("No shops found");
+        }
+    }
 }

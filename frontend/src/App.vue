@@ -1,45 +1,45 @@
 <template>
-  <div id="app">
-    <div id="navbar">
+  <div id='app'>
+    <div id='navbar'>
       <div>
-        <icon></icon><span id="title"> Mini-Shopify </span>
+        <icon></icon><span id='title'> Mini-Shopify </span>
       </div>
-      <div class="links">
-        <span><a @click="this.toggleLogin">{{linkTextLogin}}</a></span>
-        <router-link to="/signup"><button id="signup">Sign Up</button></router-link>
+      <div class='links'>
+        <span><a @click='this.toggleLogin'>{{linkTextLogin}}</a></span>
+        <router-link to='/signup'><button id='signup'>Sign Up</button></router-link>
       </div>
     </div>
-    <router-view @userLogin="this.updateBar"></router-view>
+    <router-view @userLogin='this.updateBar'></router-view>
   </div>
 </template>
 
 <script>
-  import {TOKEN_COOKIE_HEADER, setCookie} from "./constants/constants";
+import {TOKEN_COOKIE_HEADER, setCookie} from './constants/constants'
 export default {
   name: 'App',
-  data() {
-    return{
-      isUserLogged:false,
-      linkTextLogin:"Login"
+  data () {
+    return {
+      isUserLogged: false,
+      linkTextLogin: 'Login'
     }
   },
-  methods:{
-      updateBar: function(e){
-        this.isUserLogged=true
-        this.linkTextLogin="Logout"
-      },
-      logoutUser: function(){
-        //deleting token
-        setCookie(TOKEN_COOKIE_HEADER, "",0)
-        this.isUserLogged=false
-        this.linkTextLogin="Login"
-      },
-      toggleLogin: function(){
-        if (this.isUserLogged)//logging out
-          this.logoutUser()
-        else
-          this.$router.push({path: '/login'})
+  methods: {
+    updateBar: function (e) {
+      this.isUserLogged = true
+      this.linkTextLogin = 'Logout'
+    },
+    logoutUser: function () {
+      // deleting token
+      setCookie(TOKEN_COOKIE_HEADER, '', 0)
+      this.isUserLogged = false
+      this.linkTextLogin = 'Login'
+    },
+    toggleLogin: function () {
+      if (this.isUserLogged) { this.logoutUser() }
+      else {
+        this.$router.push({path: '/login'})
       }
+    }
   }
 }
 </script>

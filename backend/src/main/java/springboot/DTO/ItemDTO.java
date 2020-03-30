@@ -20,14 +20,18 @@ public class ItemDTO {
     @JsonProperty("stock")
     private int stockQuantity;
 
+    @JsonProperty("price")
+    private double price;
+
     public ItemDTO() {
     }
 
-    public ItemDTO(Long id,String name, String description, int stockQuantity, Long shopId) {
+    public ItemDTO(Long id, String name, String description, int stockQuantity, double price, Long shopId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.stockQuantity = stockQuantity;
+        this.price = price;
         this.shopId = shopId;
     }
 
@@ -69,5 +73,13 @@ public class ItemDTO {
 
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

@@ -32,6 +32,9 @@ public class Shop {
 
         tags = new ArrayList<String>();
         products = new ArrayList<Item>();
+        name="";
+        description="";
+        owner = null;
     }
 
     public Shop(String name, String description, List<String> tags, Owner owner, List<Item> products) {

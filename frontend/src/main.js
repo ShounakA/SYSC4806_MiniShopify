@@ -20,7 +20,7 @@ const routes = [
   { path: '/error', component: Error },
   { path: '/shop', component: ShopPage },
   { path: '/login', component: Login },
-  { path: '/createshop', component: CreateShopPage },
+  { path: '/createshop', component: CreateShopPage }
 ]
 
 const router = new VueRouter({

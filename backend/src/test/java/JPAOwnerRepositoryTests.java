@@ -1,27 +1,26 @@
-package springboot.Tests;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import springboot.Application;
 import springboot.Repository.OwnerRepository;
 import springboot.model.Owner;
 
 import java.util.List;
 
-@RunWith(SpringRunner.class)
+@AutoConfigureMockMvc
+@ContextConfiguration(classes={Application.class})
+@RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
-public class JPAOwnerRepositoryTest {
+public class JPAOwnerRepositoryTests {
 
     @Autowired
     private OwnerRepository ownerRepository;
-
-    @Autowired
-    private TestEntityManager entityManager;
 
     private Owner userJohn, userTom;
 

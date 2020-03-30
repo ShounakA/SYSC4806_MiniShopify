@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import springboot.Repository.OwnerRepository;
 import springboot.model.Owner;
 
 import javax.servlet.FilterChain;
@@ -19,16 +20,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
-import static springboot.constants.JWTConstants.EXPIRATION_TIME;
-import static springboot.constants.JWTConstants.SECRET;
-import static springboot.constants.JWTConstants.HEADER_STRING;
-import static springboot.constants.JWTConstants.TOKEN_PREFIX;
+import static springboot.constants.JWTConstants.*;
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private AuthenticationManager authenticationManager;
 
-
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private OwnerRepository ownerRepository;
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, OwnerRepository ownerRepository) {
         this.authenticationManager = authenticationManager;
+        this.ownerRepository =ownerRepository;
         setFilterProcessesUrl("/api/login");
     }
 
@@ -60,7 +60,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(HMAC512(SECRET.getBytes()));
+        long ownerId = this.ownerRepository.findByEmail(((User)auth.getPrincipal()).getUsername()).getId();
         res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+        res.addHeader(OWNER_ID_HEADER_STRING, Long.toString(ownerId));
+
+//        res.addCookie(new Cookie("ownerId",Long.toString(ownerId)));
+//        res.addCookie(new Cookie("token", token));
 //        chain.doFilter(req,res);
     }
 }

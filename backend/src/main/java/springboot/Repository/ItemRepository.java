@@ -1,9 +1,10 @@
 package springboot.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import springboot.model.Item;
-import springboot.model.Shop;
 
+@Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
 }

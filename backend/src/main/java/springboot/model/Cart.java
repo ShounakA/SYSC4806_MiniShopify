@@ -20,6 +20,7 @@ public class Cart {
     public Cart() {
 
         items = new ArrayList<CartItem>();
+        owner = null;
     }
 
     public Cart(Owner owner) {
@@ -56,9 +57,44 @@ public class Cart {
         this.items.add(item);
     }
 
-    public void removeItem(CartItem item) {
+    public void removeItem(long itemId) {
+        CartItem toRemove = null;
+        for (CartItem i: items) {
+            if (i.getItemId() == itemId) {
+//                items.remove(i);
+                toRemove = i;
+            }
+        }
+        if(toRemove != null){
+            toRemove.setCart(null);
+            items.remove(toRemove);
+        }
+    }
 
-        this.items.remove(item);
+    public boolean containsItem (long itemId) {
+        for (CartItem i: items) {
+            if (i.getItemId() == itemId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public CartItem getItem (long itemId) {
+        for (CartItem i: items) {
+            if (i.getItemId() == itemId) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+    public void updateItem (long itemId, int quantity) {
+        for (CartItem i: items) {
+            if (i.getItemId() == itemId) {
+                i.setQuantity(quantity);
+            }
+        }
     }
 
     @Override

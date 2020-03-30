@@ -6,4 +6,5 @@ public class JWTConstants {
     public static String SECRET = "mynewsecret";
     public static String TOKEN_PREFIX = "Bearer ";
     public static String SIGN_UP_URL = "/api/owner";
+    public static String OWNER_ID_HEADER_STRING = "ownerid";
 }

@@ -14,8 +14,7 @@ public class CartItem {
     @GeneratedValue
     private long id;
 
-    @ManyToOne
-    private Item itemId;
+    private long itemId;
     private int quantity;
 
     @ManyToOne
@@ -25,7 +24,7 @@ public class CartItem {
     public CartItem() {
     }
 
-    public CartItem(Item itemId, int quantity) {
+    public CartItem(long itemId, int quantity) {
 
         this.itemId = itemId;
         this.quantity = quantity;
@@ -39,11 +38,11 @@ public class CartItem {
         this.id = id;
     }
 
-    public Item getItemId() {
+    public long getItemId() {
         return itemId;
     }
 
-    public void setItemId(Item itemId) {
+    public void setItemId(long itemId) {
         this.itemId = itemId;
     }
 
@@ -69,7 +68,6 @@ public class CartItem {
                 "id=" + id +
                 ", itemId=" + itemId +
                 ", quantity=" + quantity +
-                ", cart=" + cart.getId() +
                 '}';
     }
 }
