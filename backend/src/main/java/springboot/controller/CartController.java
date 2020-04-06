@@ -7,11 +7,10 @@ import springboot.DTO.ItemDTO;
 import springboot.Repository.ItemRepository;
 import springboot.Repository.OwnerRepository;
 import springboot.Repository.ShopRepository;
-import springboot.model.CartItem;
-import springboot.model.Item;
-import springboot.model.Owner;
-import springboot.model.Shop;
+import springboot.model.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -155,7 +154,7 @@ public class CartController {
         }
     }
 
-    @RequestMapping(value = "/api/cart/total",method = RequestMethod.GET, consumes = "application/json")
+    @GetMapping(value = "/api/cart/total")
     public ResponseEntity total(@RequestParam(value = "ownerId") Long ownerID){
 
         double total = 0;
@@ -185,7 +184,15 @@ public class CartController {
             return ResponseEntity.badRequest().body("Owner does not exists");
         }
 
-        return ResponseEntity.ok(user.get().getPersonalCart());
+        List<Item> returnCart = new ArrayList<Item>();
+        List<CartItem> cart = user.get().getPersonalCart().getItems();
+        for(CartItem i: cart) {
+            Optional<Item> found = itemRepo.findById(i.getItemId());
+            if (found.isPresent()) {
+                returnCart.add(found.get());
+            }
+        }
+        return ResponseEntity.ok(returnCart);
     }
 
     //True if null or empty

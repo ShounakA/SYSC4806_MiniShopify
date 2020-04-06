@@ -1,5 +1,6 @@
 package springboot.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import springboot.model.Item;
 import springboot.model.Shop;
 import springboot.model.Owner;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -162,8 +164,8 @@ public class ShopController {
         return s == null || s.trim().isEmpty();
     }
 
-    @RequestMapping(value = "/api/shop/search", method = RequestMethod.GET, consumes = "application/json")
-    public ResponseEntity getShopByTags(@RequestBody ShopDTO shopDTO){
+    @RequestMapping(value = "/api/public/search", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity getShopByTags(@RequestBody ShopDTO shopDTO) throws IOException {
         //if all three are there
         if(!isEmptyNull(shopDTO.getDescription()) && !isEmptyNull(shopDTO.getName()) && !shopDTO.getTags().isEmpty()){
             List<Shop> s = shopRepo.findByNameAndDescriptionAndTagsIn(shopDTO.getName(), shopDTO.getDescription(), shopDTO.getTags());

@@ -23,7 +23,7 @@ public class Owner {
     @JsonIgnoreProperties("owner")
     private List<Shop> ownedShops;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "owner")
     @JsonIgnoreProperties("owner")
     private Cart personalCart;
 

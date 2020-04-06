@@ -18,7 +18,7 @@ public class CartItem {
     private int quantity;
 
     @ManyToOne
-    @JsonIgnoreProperties("items")
+    @JsonIgnoreProperties("cart")
     private Cart cart;
 
     public CartItem() {

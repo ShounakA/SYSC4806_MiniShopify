@@ -31,9 +31,11 @@ public class OwnerController {
         if(newOwner != null && !isEmptyNull(newOwner.getFirstName()) && !isEmptyNull(newOwner.getLastName()) && !isEmptyNull(newOwner.getEmail())
                 && !isEmptyNull(newOwner.getPassword())){
 
-            Optional<Owner> userId = ownerRepo.findById(newOwner.getId());
-            if(userId.isPresent()){
-                return ResponseEntity.badRequest().body("User already exists");
+            if (newOwner.getId() != null) {
+                Optional<Owner> userId = ownerRepo.findById(newOwner.getId());
+                if (userId.isPresent()) {
+                    return ResponseEntity.badRequest().body("User already exists");
+                }
             }
 
             Owner user = ownerRepo.findByEmail(newOwner.getEmail());

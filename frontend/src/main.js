@@ -5,22 +5,27 @@ import App from './App'
 import VueRouter from 'vue-router'
 import Dashboard from './pages/Dashboard'
 import SignUp from './pages/SignUp'
-import Cart from './pages/Cart'
 import Error from './pages/Error'
-import ShopPage from './pages/ShopPage'
 import Login from './pages/Login'
-import CreateShopPage from './pages/CreateShopPage'
+import ShopPage from './pages/ShopPage'
+import AllShopsPage from './pages/AllShopsPage';
+import CreateShopPage from "./pages/CreateShopPage";
+import Search from './pages/Search'
+import CartPage from "./pages/CartPage";
 Vue.config.productionTip = false
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Dashboard },
-  { path: '/signup', component: SignUp },
-  { path: '/cart', component: Cart },
-  { path: '/error', component: Error },
-  { path: '/shop', component: ShopPage },
-  { path: '/login', component: Login },
-  { path: '/createshop', component: CreateShopPage }
+  {path: '/', component: Dashboard},
+  {path: '/signup', name:'signup', component: SignUp},
+  {path: '/cart', name:'cart', component: CartPage},
+  {path: '/error', name:'error', component: Error},
+  {path: '/login', name:'login', component: Login},
+  {path: '/shop', name: 'shop', component: ShopPage, props: (route) => ({shopId: route.query.shopId})},
+  {path: '/create', name: 'create', component: CreateShopPage},
+  {path: '/edit', name: 'edit', component: CreateShopPage, props: (route) => ({shopId: route.query.shopId})},
+  {path: '/all_shops', name: 'all_shops', component: AllShopsPage},
+  {path: '/search', component: Search}
 ]
 
 const router = new VueRouter({
@@ -30,6 +35,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })

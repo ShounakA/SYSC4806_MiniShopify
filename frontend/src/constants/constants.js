@@ -3,19 +3,24 @@ export const TOKEN_PREFIX = 'Bearer '
 export const TOKEN_HEADER_STRING = 'authorization'
 
 export const OWNER_ID_HEADER_STRING = 'ownerid'
-export function setCookie (cname, cvalue, exdays) {
+
+export const STATUS_OK_CODE = 200
+
+export function setCookie(cname, cvalue, exdays) {
   var d = new Date()
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
   var expires = 'expires=' + d.toUTCString()
   document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
 }
-export function addCookie (cname, cvalue, exdays) {
+
+export function addCookie(cname, cvalue, exdays) {
   var d = new Date()
   d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
   var expires = 'expires=' + d.toUTCString()
   document.cookie += cname + '=' + cvalue + ';' + expires + ';path=/'
 }
-export function getCookie (cname) {
+
+export function getCookie(cname) {
   var name = cname + '='
   var decodedCookie = document.cookie
   var ca = decodedCookie.split(';')
