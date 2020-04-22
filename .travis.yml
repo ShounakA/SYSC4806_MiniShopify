@@ -8,6 +8,6 @@ deploy:
 env:
   global:
     - DB_URL=postgres://hmhnojhqvzitcp:2e009c75ab7eb1f96354157962ec04fee025548061710e0f3e664a276b6c86aa@ec2-52-201-55-4.compute-1.amazonaws.com:5432/d8o014u2aeu7h3
-    - DB_HIBERNATE_OPTS=create-drop
+    - DB_HIBERNATE_OPTS=update
     - DB_PASS=test
     - DB_USER=postgres
