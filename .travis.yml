@@ -5,3 +5,8 @@ deploy:
   app: mini-shopify-4806
   api_key:
     secure: fvXqsutHTEY8c2QSiB9gQfcfE/6XNpZgVOhU0A53/6hidas9O1tnyzdzYVaIWmf0Fv5ZyZvVQndUCoJqwlWt9fm5LVX8XejrW79XLrm+aMj/wRkq0Wkt+C3vS5V3uo4XzFmSXv4WdYVPpbiG1699Vt8Sz2/AVR8Q/xStK8GhnZZsZJmMJ/ktavJplzOy0tdtP6skGuNGCX3/QbwUTfjkEEZ7EzfXGw9o6JKGn9CNqNDB060ORvFD+IRztbi9lFEWvK1IW9vHqILasf4ezJD7WQL/HNa9SrD2BhWwIR1X/7DaAmO0mgrsDcBdaG+pAZu+2tG4SuOx69RmWotAodDm2QYwcoKOns4I0l0nS1YXMuD4nzhjw6vnGMwfgwKKcOY2UrPbN72RPjzDo5fLxJONVJ9IAPNe81WhhDwvgO1YY03RsuMaPMKOKChRUk9/cOGbDbYnMuDvbSyzehkj54lAKOucN97UVc9pv/jDAFOMohole8qxAMsGqrDOnRVqOd3uGOSUqdcK1kTQKYuyQp1pCGKA31G2P3VBxe/vqVEVpZh6CMchz9rUJO7SlAhZHjOxkj7xQ1dS8TmCsewafUg9arzhxiUFbhEmQMqdSeZs6fW29KqrfV/wmni7jYPIY+PIBsl9ImTUVx/NYrJC/WG1S8iphm3B7xZsDowqYHnIQoc=
+env:
+  - DB_URL=postgres://hmhnojhqvzitcp:2e009c75ab7eb1f96354157962ec04fee025548061710e0f3e664a276b6c86aa@ec2-52-201-55-4.compute-1.amazonaws.com:5432/d8o014u2aeu7h3
+  - DB_HIBERNATE_OPTS=create-drop
+  - DB_PASS=test
+  - DB_USER=postgres
