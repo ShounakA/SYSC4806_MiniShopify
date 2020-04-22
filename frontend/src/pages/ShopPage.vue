@@ -14,7 +14,7 @@
         <h2 id='shop_tags'>{{tags}}</h2>
       </div>
       <div class="product_item_container">
-        <ProductItem v-for='(product, index) in products' v-bind:key='product.id' v-bind:id='product.id'
+        <ProductItem v-for='(product) in products' v-bind:key='product.id' v-bind:id='product.id'
                      v-bind:name="product.name"
                      v-bind:description="product.description" v-bind:stockPrice="product.price"
                      v-bind:stockQuantity="product.stockQuantity"/>

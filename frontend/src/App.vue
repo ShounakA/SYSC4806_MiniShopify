@@ -34,7 +34,7 @@
       }
     },
     methods: {
-      updateBar: function (e) {
+      updateBar: function () {
         this.isUserLogged = true
         this.linkTextLogin = 'Logout'
       },
@@ -132,3 +132,4 @@
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   }
 </style>
+
