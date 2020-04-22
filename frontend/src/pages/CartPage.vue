@@ -18,7 +18,6 @@
   import {
     getCookie,
     OWNER_ID_HEADER_STRING,
-    STATUS_OK_CODE,
     TOKEN_COOKIE_HEADER,
     TOKEN_PREFIX,
   } from "../constants/constants";

@@ -54,9 +54,7 @@
     },
     methods: {
       loadShops() {
-        var currentUserId = this.userId;
         this.shops=[]
-        var userShops = [];
         if ((this.queryTags === null || this.queryTags.length===0) && (this.queryName===null || this.queryName==='') && (this.queryDesc===null || this.queryDesc==='')){
           this.message = 'Enter in at least one field.'
         }else{

@@ -39,7 +39,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                     .antMatchers("/api/public/*").permitAll()
                     .antMatchers("/").permitAll()
                     .antMatchers("/h2-console/*").permitAll()
-                    .antMatchers("/assets/**", "static/assets/**", "/img/**", "**/favicon.ico").permitAll()
+                    .antMatchers("/assets/**", "static/assets/**", "/img/**", "**/favicon.ico","static/js/**","static/css/**","/js/**","/css/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .addFilter(new JWTAuthenticationFilter(authenticationManager(),this.ownerRepository))

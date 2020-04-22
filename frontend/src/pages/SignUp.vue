@@ -37,7 +37,7 @@
       }
     },
     methods: {
-      isValid: function (e) {
+      isValid: function () {
         this.errors = []
         if (!this.firstName) {
           this.errors.push('First Name required.')

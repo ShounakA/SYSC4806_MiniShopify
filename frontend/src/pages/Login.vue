@@ -37,7 +37,7 @@
       }
     },
     methods: {
-      isValid: function (e) {
+      isValid: function () {
         this.errors = []
         if (!this.email) {
           this.errors.push('Email required.')

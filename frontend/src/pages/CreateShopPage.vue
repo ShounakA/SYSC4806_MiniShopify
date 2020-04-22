@@ -83,7 +83,7 @@
           });
       },
       populateEditComponents() {
-        this.items.forEach((item, index) => {
+        this.items.forEach(() => {
           this.editItemsComponents.push(EditItem);
         });
       },
